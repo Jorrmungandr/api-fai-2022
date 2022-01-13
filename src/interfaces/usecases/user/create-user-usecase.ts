@@ -13,5 +13,5 @@ export namespace CreateUserUseCase {
     cpf: User['cpf'];
   };
 
-  export type Result = User;
+  export type Result = Omit<User, 'password'>;
 }
