@@ -21,6 +21,9 @@ export class User {
   @Column('varchar')
   cpf: string;
 
+  @Column('int')
+  age: number;
+
   @Column({
     type: 'varchar',
     unique: true,

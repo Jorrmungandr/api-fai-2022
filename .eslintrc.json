@@ -28,7 +28,8 @@
     "class-methods-use-this": "off",
     "@typescript-eslint/no-namespace": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "no-shadow": "off"
+    "no-shadow": "off",
+    "import/order": "off"
   },
   "overrides": [
     {

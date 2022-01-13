@@ -5,7 +5,7 @@ export type Post = {
 
   content: string;
   media: string;
-  user: User;
+  user?: User;
 
   createdAt: Date;
   updatedAt: Date;
