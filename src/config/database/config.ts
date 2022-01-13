@@ -32,13 +32,14 @@ const getConnection = async (connectionOptions: ConnectionOptions): Promise<Conn
   }
 };
 
-export const TypeormHelper = {
-  connection: null as Connection,
+export const TypeormSingleton = {
+  instance: null as Connection,
   async connect(): Promise<Connection> {
     const connection = await getConnection(options);
     await connection.synchronize();
-    this.connection = connection;
 
-    return this.connection;
+    this.instance = connection;
+
+    return this.instance;
   },
 };

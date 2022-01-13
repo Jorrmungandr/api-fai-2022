@@ -2,13 +2,13 @@ import 'module-alias/register';
 
 import http from 'http';
 
-import { TypeormHelper } from './database/config';
+import { TypeormSingleton } from './config/database/config';
 import app from './app';
 
 import 'dotenv/config';
 
 (async () => {
-  await TypeormHelper.connect();
+  await TypeormSingleton.connect();
 
   const httpServer = http.createServer(app);
 
