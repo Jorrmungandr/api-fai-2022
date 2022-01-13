@@ -2,10 +2,17 @@ import 'module-alias/register';
 
 import http from 'http';
 
+import { TypeormHelper } from './database/config';
 import app from './app';
 
-const httpServer = http.createServer(app);
+import 'dotenv/config';
 
-const port = process.env.API_PORT || 3000;
+(async () => {
+  await TypeormHelper.connect();
 
-httpServer.listen(port, () => console.log(`Server is running on port ${port}`));
+  const httpServer = http.createServer(app);
+
+  const port = process.env.API_PORT || 3000;
+
+  httpServer.listen(port, () => console.log(`Server is running on port ${port}`));
+})();
