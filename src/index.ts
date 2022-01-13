@@ -2,7 +2,7 @@ import 'module-alias/register';
 
 import http from 'http';
 
-import { TypeormSingleton } from './config/database/config';
+import { TypeormSingleton } from './database/config';
 import app from './app';
 
 import 'dotenv/config';
