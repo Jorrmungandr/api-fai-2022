@@ -1,15 +1,11 @@
 import express from 'express';
 
-import { router } from './routes';
-
-import { bodyParser, contentType, cors } from '@/middlewares';
+import { bodyParser } from './main/middlewares';
+import { router } from './main/routes';
 
 const app = express();
 
-// Middlewares
 app.use(bodyParser);
-app.use(cors);
-app.use(contentType);
 
 app.use(router);
 
