@@ -3,22 +3,53 @@ import { TypeormHelper } from '@/db/config';
 import { User } from '@/db/models';
 
 export class TypeORMUserRepository implements UserRepository {
-  create() {
-    return { id: 'as', name: 'Edgar', age: 19, email: 'edgar@marques.com', password: 'senha123' };
+  async create(createUserParams: UserRepository.createParams) {
+    const { password, ...createdUser } = await TypeormHelper.connection.getRepository(User).save(createUserParams);
+
+    return createdUser;
   }
 
-  async list() {
-    const users = await TypeormHelper.connection.getRepository(User).find({});
-    console.log(users);
+  async findOne({ id }: UserRepository.findOneParams) {
+    const user = await TypeormHelper.connection.getRepository(User).findOne({ id }, { select: ['password', 'email'] });
+    return user;
+  }
+
+  async list(listParams: UserRepository.listParams = {}) {
+    const filteredParams = Object.fromEntries(
+      Object.entries(listParams).filter(([, value]) => {
+        if (value === undefined) {
+          return false;
+        }
+        return true;
+      }),
+    );
+
+    const users = await TypeormHelper.connection.getRepository(User).find(filteredParams);
 
     return users;
   }
 
-  update() {
-    return { id: 'as', name: 'Edgar', age: 19, email: 'edgar@marques.com', password: 'senha123' };
+  async update(params: UserRepository.updateParams) {
+    const { id, ...updateUserParams } = params;
+
+    const filteredParams = Object.fromEntries(
+      Object.entries(updateUserParams).filter(([, value]) => {
+        if (value === undefined) {
+          return false;
+        }
+        return true;
+      }),
+    );
+
+    await TypeormHelper.connection.getRepository(User).update(id, filteredParams);
+    const updatedUser = await TypeormHelper.connection.getRepository(User).findOne({ id });
+
+    return updatedUser;
   }
 
-  delete() {
-    console.log('bye bye');
+  async delete(deleteUserParams: UserRepository.deleteParams) {
+    const { id } = deleteUserParams;
+
+    await TypeormHelper.connection.getRepository(User).delete({ id });
   }
 }

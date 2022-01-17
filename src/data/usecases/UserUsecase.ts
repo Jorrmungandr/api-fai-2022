@@ -1,10 +1,10 @@
 import { User } from '../entities';
 
 export interface UserUsecase {
-  create(params: UserUsecase.createParams): User;
+  create(params: UserUsecase.createParams): Promise<Omit<User, 'password'>>;
   list(): Promise<User[]>;
-  update(params: UserUsecase.updateParams): User;
-  delete(params: UserUsecase.deleteParams): void;
+  update(params: UserUsecase.updateParams): Promise<User>;
+  delete(params: UserUsecase.deleteParams): Promise<void>;
 }
 
 export namespace UserUsecase {

@@ -3,10 +3,10 @@ import { UserService } from '@/services';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  create(req, res) {
+  async create(req, res) {
     const { name, email, password, age } = req.body;
 
-    const createdUser = this.userService.create({ name, email, password, age });
+    const createdUser = await this.userService.create({ name, email, password, age });
 
     res.send(createdUser);
   }
@@ -17,19 +17,19 @@ export class UserController {
     res.send(users);
   }
 
-  update(req, res) {
+  async update(req, res) {
     const { id } = req.params;
     const { name, email, password, age } = req.body;
 
-    const updatedUser = this.userService.update({ id, name, email, password, age });
+    const updatedUser = await this.userService.update({ id, name, email, password, age });
 
     res.send(updatedUser);
   }
 
-  delete(req, res) {
+  async delete(req, res) {
     const { id } = req.params;
 
-    this.userService.delete({ id });
+    await this.userService.delete({ id });
 
     res.send('DELETED');
   }
